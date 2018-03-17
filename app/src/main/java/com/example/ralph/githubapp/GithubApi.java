@@ -1,5 +1,7 @@
 package com.example.ralph.githubapp;
 
+import java.util.ArrayList;
+
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -12,5 +14,8 @@ public interface GithubApi {
 
     @GET("users/{username}")
     Call<User> getUser(@Path("username") String username);
+
+    @GET("users/{username}/followers")
+    Call<ArrayList<User>> getFollowers(@Path("username") String username);
 
 }

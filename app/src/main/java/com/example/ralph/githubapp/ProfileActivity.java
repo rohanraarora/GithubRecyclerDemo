@@ -1,5 +1,6 @@
 package com.example.ralph.githubapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -32,7 +33,7 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         avatar = findViewById(R.id.avatar);
-        name = findViewById(R.id.name);
+        name = findViewById(R.id.username);
         usernameTextView = findViewById(R.id.username);
         followers = findViewById(R.id.followers);
         content = findViewById(R.id.content);
@@ -74,7 +75,9 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     public void showFollowers(View view){
-
+        Intent intent = new Intent(this,FollowersActivity.class);
+        intent.putExtra("username",username);
+        startActivity(intent);
     }
 
 }
