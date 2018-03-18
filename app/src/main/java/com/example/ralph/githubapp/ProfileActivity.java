@@ -33,7 +33,7 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         avatar = findViewById(R.id.avatar);
-        name = findViewById(R.id.username);
+        name = findViewById(R.id.name);
         usernameTextView = findViewById(R.id.username);
         followers = findViewById(R.id.followers);
         content = findViewById(R.id.content);
