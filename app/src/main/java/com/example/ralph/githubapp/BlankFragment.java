@@ -6,6 +6,7 @@
 package com.example.ralph.githubapp;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -39,10 +40,29 @@ public class BlankFragment extends Fragment {
     UsersRecyclerAdapter recyclerAdapter;
     ArrayList<User> followers = new ArrayList<>();
 
+    UserSelectedCallback mCallback;
+
+    public interface UserSelectedCallback {
+
+        void onUserSelected(User user);
+
+    }
+
     public BlankFragment() {
         // Required empty public constructor
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            mCallback = (UserSelectedCallback) context;
+        }
+        catch (ClassCastException e){
+            throw  new ClassCastException("Activity should implement UserSelectedCallback");
+        }
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,8 +81,8 @@ public class BlankFragment extends Fragment {
             recyclerAdapter = new UsersRecyclerAdapter(getContext(), followers, new UsersRecyclerAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(int position) {
-                    followers.remove(position);
-                    recyclerAdapter.notifyItemRemoved(position);
+                    User user = followers.get(position);
+                    mCallback.onUserSelected(user);
                 }
             });
             recyclerView.setAdapter(recyclerAdapter);
