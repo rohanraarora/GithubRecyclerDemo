@@ -18,4 +18,8 @@ public interface GithubApi {
     @GET("users/{username}/followers")
     Call<ArrayList<User>> getFollowers(@Path("username") String username);
 
+    @GET("users/{username}/repos")
+    Call<ArrayList<Repo>> getRepos(@Path("username") String username);
+
+
 }

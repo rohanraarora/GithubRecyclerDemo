@@ -1,6 +1,7 @@
 package com.example.ralph.githubapp;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +25,7 @@ public class UserDetailFragment extends Fragment {
 
     TextView usernameTextView;
     ImageView avatarImageView;
+    Button reposButton;
 
 
     public UserDetailFragment() {
@@ -40,14 +43,23 @@ public class UserDetailFragment extends Fragment {
 
         avatarImageView = view.findViewById(R.id.avatar);
         usernameTextView = view.findViewById(R.id.username);
+        reposButton = view.findViewById(R.id.reposButton);
 
         Bundle bundle = getArguments();
         if(bundle != null){
-            String username = bundle.getString("username");
+            final String username = bundle.getString("username");
             String avatar = bundle.getString("avatar");
 
             usernameTextView.setText(username);
             Picasso.get().load(avatar).into(avatarImageView);
+            reposButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(),ReposActivity.class);
+                    intent.putExtra("username",username);
+                    startActivity(intent);
+                }
+            });
         }
 
         return view;
