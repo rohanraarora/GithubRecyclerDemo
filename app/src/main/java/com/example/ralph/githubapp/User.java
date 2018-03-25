@@ -1,11 +1,16 @@
 package com.example.ralph.githubapp;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by ralph on 17/03/18.
  */
 
+@Entity(tableName = "users")
 public class User {
 
     private String name;
@@ -15,7 +20,9 @@ public class User {
 
     private int followers;
 
+    @PrimaryKey
     @SerializedName("login")
+    @NonNull
     private String username;
 
     public User(String name, String avatarURL, int followers, String username) {
