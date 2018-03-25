@@ -7,6 +7,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,9 +28,17 @@ public class ReposActivity extends AppCompatActivity {
         adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,repoNames);
         listView.setAdapter(adapter);
 
+
+
         Intent intent = getIntent();
         String username = intent.getStringExtra("username");
         if(username!= null){
+
+            List<String> names = GithubDatabase.getInstance(this).getReposDao().getRepoNames(username);
+            repoNames.clear();
+            repoNames.addAll(names);
+            adapter.notifyDataSetChanged();
+
             Call<ArrayList<Repo>> call = ApiClient.getInstance().getGithubApi().getRepos(username);
 
             call.enqueue(new Callback<ArrayList<Repo>>() {
@@ -40,7 +49,9 @@ public class ReposActivity extends AppCompatActivity {
                         repoNames.clear();
                         for(Repo repo:repos){
                             repoNames.add(repo.name);
+                            repo.ownerUsername = repo.owner.getUsername();
                         }
+                        GithubDatabase.getInstance(ReposActivity.this).getReposDao().insertRepos(repos);
                         adapter.notifyDataSetChanged();
                     }
                 }

@@ -6,7 +6,6 @@
 package com.example.ralph.githubapp;
 
 
-import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -87,9 +86,7 @@ public class BlankFragment extends Fragment {
         final String username = "rohanraarora";
         if(username!= null){
 
-            githubDatabase = Room.databaseBuilder(getContext(),GithubDatabase.class,"github_databases")
-                    .allowMainThreadQueries()
-                    .build();
+            githubDatabase = GithubDatabase.getInstance(getContext());
             usersDAO = githubDatabase.getUserDao();
             List<User> users = usersDAO.getAllUsers();
 
