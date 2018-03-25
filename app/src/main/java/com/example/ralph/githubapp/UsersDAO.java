@@ -33,7 +33,7 @@ public interface UsersDAO {
     void updateUser(User user);
 
 
-    @Query("SELECT * FROM users WHERE followers")
+    @Query("SELECT * FROM users")
     List<User> getAllUsers();
 
     @Query("SELECT username FROM users")

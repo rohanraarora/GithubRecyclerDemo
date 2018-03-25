@@ -99,7 +99,6 @@ public class BlankFragment extends Fragment {
                     fetchFollowers(username);
                 }
             });
-            fetchFollowers(username);
             recyclerAdapter = new UsersRecyclerAdapter(getContext(), followers, new UsersRecyclerAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(int position) {
@@ -115,6 +114,7 @@ public class BlankFragment extends Fragment {
             followers.clear();
             followers.addAll(users);
             recyclerAdapter.notifyDataSetChanged();
+            fetchFollowers(username);
 
             ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP|ItemTouchHelper.DOWN,ItemTouchHelper.RIGHT|ItemTouchHelper.LEFT) {
                 @Override
